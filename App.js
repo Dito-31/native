@@ -1,20 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
+import 'react-native-gesture-handler';
+import Home from './src/components/Home.js'
+import Main from './src/components/Main.js'
+import Screen from './src/components/Screen.js'
+import { useState } from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import BasketContext from './src/components/BasketContext.js'
 export default function App() {
+  const [basket,setBasket]=useState([])
+  const Stack = createStackNavigator();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+      <BasketContext.Provider value={{basket,setBasket}}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Main" component={Main} />
+            <Stack.Screen name="Screen" component={Screen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </BasketContext.Provider>
+    
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
